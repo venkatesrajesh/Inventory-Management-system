@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Outward Entry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Outward Entry - {{ username }}</h2>
+        <form method="POST">
+            <input type="text" name="insert_number" placeholder="Insert Number" required>
+            <select name="op_code" required>
+                {% for op in op_codes %}
+                <option value="{{ op }}">{{ op }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="tool_number" placeholder="Tool Number" required>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+        <h3>Outward Records</h3>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Insert Number</th>
+                <th>Op Code</th>
+                <th>Tool Number</th>
+                <th>Quantity</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row['User'] }}</td>
+                <td>{{ row['Date'] }}</td>
+                <td>{{ row['Time'] }}</td>
+                <td>{{ row['Insert Number'] }}</td>
+                <td>{{ row['Op Code'] }}</td>
+                <td>{{ row['Tool Number'] }}</td>
+                <td>{{ row['Quantity'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Total Inventory</h3>
+        <table>
+            <tr>
+                <th>Insert Number</th>
+                <th>Total Quantity</th>
+            </tr>
+            {% for row in total_inventory %}
+            <tr>
+                <td>{{ row['Insert Number'] }}</td>
+                <td>{{ row['Total Quantity'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
